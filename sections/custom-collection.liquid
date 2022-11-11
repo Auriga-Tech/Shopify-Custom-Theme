@@ -1,0 +1,216 @@
+{{ 'custom-style.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+
+  a.collection-products-list-link{
+    color:#000;
+    text-transform:uppercase;
+  }
+  
+  p {
+    margin:0!important
+  }
+
+   .collection-products-list-link  img{
+     width:100%;
+     height:auto;
+   }
+
+  .visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+  }
+
+  .collection-products-list{
+    display: inline-flex;
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+    padding: 0;
+    grid-gap: 25px;
+  }
+  
+  .collection-products-list li {
+    list-style-type: none;
+    float: left;
+    flex: 0 0 31.8%;
+  }
+
+  .collection-products-list-link{
+    text-decoration:none
+  }
+  
+  .collection-product-title{
+    font-size:14px
+  }
+
+  .sort-settings{
+   text-align:right;
+  }
+
+  .popup-wrap{
+		position: fixed;
+        top:0;
+        left:0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.15);
+		display: block;
+		/*transition: all 1.7s ease;*/
+	}
+
+	.popup{
+		position: relative;
+		width: 450px;
+		height: 450px;
+		background-color: rgba(0,0,0,1);
+		margin: 100px auto;
+	}
+    .popup img{width:100%;height:100%;}
+	.popup-timer{
+		width: auto;
+		height: 25px;
+		color: #fff;
+		position: absolute;
+		right: 10px;
+		line-height: 25px;
+		padding: 0px 10px;
+	}
+	.btn-close{
+		background-color: #fff;
+		width: 25px;
+		height: 25px;
+		text-align: center;
+		line-height: 22px;
+		position: absolute;
+		right: -10px;
+		top: -10px;
+		cursor: pointer;
+		transition: all 0.5s ease;
+		border-radius: 50%;
+	}
+	.btn-close:hover{
+		transform: rotate(360deg);
+	}
+
+ 
+
+  @keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+div.has-secondary img.secondary{
+    position: absolute;
+    top: 0;
+    margin: 0 auto;
+}
+
+div.has-secondary img.secondary{
+ display:none;
+}
+
+.product-card:hover img.secondary{
+ display:block !important;
+-webkit-animation: fade-in 0.5s;
+    animation: fade-in 0.5s;
+}
+
+.product-card:hover .has-secondary:first-child img {
+  display:none;
+}
+  
+{% endstyle %}
+
+<div class = "collection-section">
+  <div class = "container">
+  <h1>{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <p>{{ collection.description }}</p>
+    {%- endif -%}
+    <div class="sort-settings">
+      <select id="sort-by">
+      {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+        {% for option in collection.sort_options %}
+          <option value="{{ option.value }}" {% if option.value == sort_by %} selected="selected"{% endif %}>
+            {{ option.name }}
+          </option>
+      {% endfor %}
+      </select>
+    </div>
+    
+  <ul class="collection-products-list">
+     
+  {%- for product in collection.products -%}      
+    <li class="collection-products-list-item">
+      <a class="collection-products-list-link" href="{{ product.url | within: collection }}">
+        <div class="{% if section.settings.show_second_image %}{% if product.images.size > 1 %} has-secondary{% endif %}{% endif %}" style="padding-top:{% unless preview_image == blank %}{{ 1 | divided_by: preview_image.aspect_ratio | times: 100 }}%{% else %}100%{% endunless %};">
+        <img id="{{ img_id }}"
+              class="grid-view-item__image lazyload"
+              alt="{{ preview_image.alt }}"
+              data-src="{{ img_url }}"
+              data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+              data-aspectratio="{{ preview_image.aspect_ratio }}"
+              data-sizes="auto"
+              data-image>
+              {% if section.settings.show_second_image %}
+                {% if product.images.size > 1 %}
+                  {% unless grid_image_width %}
+                    {%- assign grid_image_width = '600x600' -%}
+                  {% endunless %}
+
+                 <img class="secondary" alt="{{ product.images.last.alt | escape }}" src="{{ product.images.last | img_url: grid_image_width }}" >
+                {% endif %}
+              {% endif %}
+
+      </div>
+        
+      </a>
+    </li>
+  {%- endfor -%}
+  </ul>
+
+  </div>
+</div>
+
+{% javascript %}
+  Shopify.queryParams = {};
+
+  // Preserve existing query parameters
+  if (location.search.length) {
+    var params = location.search.substr(1).split('&');
+
+    for (var i = 0; i < params.length; i++) {
+      var keyValue = params[i].split('=');
+
+      if (keyValue.length) {
+        Shopify.queryParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+      }
+    }
+  }
+
+  // Update sort_by query parameter on select change
+  document.querySelector('#sort-by').addEventListener('change', function(e) {
+    var value = e.target.value;
+
+    Shopify.queryParams.sort_by = value;
+    location.search = new URLSearchParams(Shopify.queryParams).toString();
+  });
+{% endjavascript %}
+{% schema %}
+  {
+    "name": "collection"
+  }
+{% endschema %}
+

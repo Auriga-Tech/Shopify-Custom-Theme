@@ -1,0 +1,42 @@
+.hero-section{
+    position:relative;
+}
+
+.hero-img1{
+    width: 100%;
+    height:auto;
+    max-height: 650px;
+    object-fit:cover;
+}
+
+.hero-img2{
+    width: 100%;
+    height:auto;
+    position:absolute;
+    left:0;
+    z-index:-1;
+ 
+}
+
+.main-menu-list{
+    color:#333;
+}
+
+.mini-image-banner{
+  max-height:300px;
+  overflow:hidden;
+  position:relative;
+}
+
+.second-image{
+  background-size:cover;
+  min-height:200px;
+  background-position:center;
+}
+
+.default-mini-banner{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}

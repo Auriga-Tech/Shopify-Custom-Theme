@@ -1,0 +1,108 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
+
+<style>
+  
+  .collection-title{
+    text-transform:uppercase;
+    color:#000;
+    margin-top:10px;
+    font-weight:600;
+  }
+
+  .collection-url{
+    text-decoration:none;
+  }
+
+  .slider-heading{
+    text-align:{{ section.settings.slider_heading_pos }};
+    font-weight:600;
+  }
+  
+  .featured-collection-slider .carousel-cell{
+    padding: 0 0 0 20px;
+  }
+
+   .featured-collection-slider .carousel-cell:first-child{
+    padding: 0 ;
+  }
+
+  .img-explore{
+    min-height:200px;
+    object-fit:cover;
+  }
+
+  .common-title{
+    font-weight:600;
+    text-align:center;
+    text-transform:uppercase;
+  }
+  
+</style>
+
+<div class="page-width">
+  <h2 class="title title--primary common-title">{{ section.settings.title | escape }}</h2>
+  {%- paginate collections by paginate_by -%}
+      <div class="row">
+     {%- for collection in collections -%}
+          <div class="col-md-6"> 
+            {%- if collection.image -%}
+              {%- assign collection_image = collection.image -%}
+                {%- elsif collection.products.first and collection.products.first.images != empty -%}
+              {%- assign collection_image = collection.products.first.featured_image -%}
+                {%- else -%}
+              {%- assign collection_image = blank -%}
+            {%- endif -%}
+            
+            <a href="{{ collection.url }}" class="collection-url">
+              <img src="{{ collection_image | img_url: 'master' }}" class="img-fluid" alt="collection.title">
+               <p class="collection-title slider-heading"> {{ collection.title }} </p>
+            </a>
+              
+          </div>
+    {%- endfor -%}
+      </div>
+    {% render 'pagination', paginate: paginate %}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-list-collections.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.main-list-collections.settings.title.label",
+      "default": "Collections"
+    },
+    {
+      "type": "select",
+      "id": "slider_heading_pos",
+      "label": "heading positions",
+     
+       "options": [
+        {
+          "value": "left",
+          "label": "left"
+        },
+        {
+          "value": "right",
+          "label": "right"
+        },
+        {
+          "value": "center",
+          "label": "center"
+        }
+      ],
+       "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-list-collections.settings.header_mobile.content"
+    }
+    
+  ]
+}
+{% endschema %}

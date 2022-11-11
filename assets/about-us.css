@@ -1,0 +1,57 @@
+.section-aboutus{
+  background-color:{{section.settings.bg_color}}
+}
+
+.about-us-content{
+  max-width:600px;
+  margin:0 auto;
+  text-align:center;
+}
+
+.about-us-content p{
+  font-weight:600;
+}
+
+.about-us-img{
+  height:360px
+}
+
+.about-us-img svg{
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.about-us-left_content{
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.about-us-left_content h2{
+  text-align:center;
+  font-weight:600;
+  color:#ff5776;
+}
+
+.about-img {
+  min-height: 500px;
+  max-width: 500px;
+  object-fit: cover;
+}
+
+.about-us-left_content{
+   padding:80px 40px;
+}
+
+.about-us-left_content p{
+  text-align:center;
+ 
+}
+
+.about_us_leftblock {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    height: 100%;
+}

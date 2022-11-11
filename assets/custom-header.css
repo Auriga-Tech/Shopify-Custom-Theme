@@ -1,0 +1,104 @@
+body
+{    
+  background-color: aliceblue;    
+  padding:0;    
+  margin:0; 
+}  
+
+.container{     
+  max-width:1140px;    
+  padding-left:15px;    
+  padding-right:15px;    
+  margin: 0 auto;
+}  
+
+.container-fluid{  
+  max-width:100%;    
+  padding-left:15px;    
+  padding-right:15px;    
+  margin: 0 auto; 
+}  
+
+form{  
+  margin:0; 
+}
+
+.announcement-bar-section {
+    text-align:center;
+    padding:4px 0;
+    background:#FDCCCC;
+}
+
+.announcement-bar-section a{ 
+    font-size:14px;
+    color:#333;
+    text-transform:uppercase;
+    text-decoration:none;
+}
+
+.announcement-bar-section a p{
+  margin-bottom:0
+}
+
+.logo{
+    text-align:center;
+    margin:auto;
+    padding:6px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo-fluid{
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+}
+
+.main-menu{
+    text-align:center;
+    height:50px;
+    display: flex;
+    justify-content: center;
+}
+
+.main-menu-list .main-menu-list-item{
+    float:left;
+    list-style:none;
+    margin-left:20px;
+}
+
+.main-menu-list .main-menu-list-item a{
+  color:#000;
+  text-transform:uppercase;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.search-bar{
+    width:260px;
+}
+
+.logo-name{
+    width:260px;
+}
+
+.logo-name svg{
+  width:100px;
+}
+
+.register{
+    width: 260px;
+    display: flex;
+    grid-gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.collections-home{
+    display:flex;
+}
+
+.cart-icon-class svg{
+  width:40px;
+}

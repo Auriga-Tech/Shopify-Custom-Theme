@@ -1,0 +1,63 @@
+
+{{ 'custom-newsletter.css' | asset_url | stylesheet_tag  }}
+
+<div class = "newsletter-section">
+  <div class = "container">
+    <div class = "social-content">
+      <ul class = "social-content-list">
+        <li class = "social-content-listitem">
+          <a href = "#" class="social-content-listitem"> 
+            {% render 'instagram' %} 
+          </a>
+        </li>
+        <li class = "social-content-listitem ">
+          <a href = "#" class="social-content-listitem"> 
+            <div class="facebook-listitem-icon">{% render 'facebook-icon' %}</div> 
+          </a>
+        </li>
+        <li class = "social-content-listitem">
+          <a href = "#" class="social-content-listitem"> 
+            {% render 'twitter-icon' %} 
+          </a>
+        </li>
+        <li class = "social-content-listitem ">
+          <a href = "#" class="social-content-listitem"> 
+            {% render 'pinterest-icon' %} 
+          </a>
+        </li>
+        <li class = "social-content-listitem">
+          <a href = "#" class="social-content-listitem"> 
+            {% render 'tiktok-icon' %} 
+          </a>
+        </li>
+      </ul>
+      <div class="social-quote">
+        <h2>{{ section.settings.social_quote_heading }}</h2>
+        <p>{{ section.settings.social_quote }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "custom-newsletter",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_quote_heading",
+        "label": "social quote heading",
+        "default": "BRIGHTEN UP YOUR INBOX"
+      },
+      {
+        "type": "text",
+        "id": "social_quote",
+        "label": "social quote",
+        "default": "Join our email list for new product releases, endless inspiration, and <strong>10% off</strong> your next order."
+      }
+    ]
+  }
+{% endschema %}
+
+

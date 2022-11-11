@@ -1,0 +1,32 @@
+{{ 'custom-header.css' | asset_url | stylesheet_tag }}
+
+<div class="announcement-bar-section">
+   <a href = " {{ section.settings.announcement-bar_link }} " target="_blank"> 
+    <p>{{ section.settings.announcement-bar_text }} </p>
+   </a>
+</div>
+
+
+{% schema %}
+
+{
+    "name" : "announcement-bar",
+    "settings" : [
+
+      {   
+         "id": "announcement-bar_link",
+         "type": "url",
+         "label": "announcement bar link"   
+      },
+
+      {   
+         "id": "announcement-bar_text",
+         "type": "textarea",
+         "default":"Welcome to our store",
+         "label": "announcement bar text"               
+      }
+         
+    ]
+}
+
+{% endschema %}

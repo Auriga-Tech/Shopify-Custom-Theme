@@ -1,0 +1,46 @@
+{{ 'hero.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+
+  .section-padding{
+    padding-top:40px;
+  }
+  
+{% endstyle %}
+
+<div class="hero-section section-padding" >
+    <div class="hero-section-container">
+        <a href="collections/frontpage" target="_blank">
+           <div class="mini-image-banner">
+              <div class="default-mini-banner">
+               {% render 'mini-shop-now' %}
+              </div>
+                {% if section.settings.mini_banner_img == blank %} 
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% else %}
+                  <div class = "second-image" style = background-image:url({{ section.settings.mini_banner_img | img_url:'master'  }})>
+                  </div>
+                {% endif %}
+           </div>
+        </a>
+         
+    </div>
+</div>  
+
+
+{% schema %}
+
+{
+    "name" : "mini banner image",
+    "settings" : [
+         
+            {
+                "type": "image_picker",
+                "id": "mini_banner_img",
+                "label": " mini banner image"               
+            }
+          
+    ]  
+}
+
+{% endschema %}

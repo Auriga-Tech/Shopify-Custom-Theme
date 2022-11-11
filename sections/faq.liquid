@@ -1,0 +1,72 @@
+<style>
+
+  .section-FAQ{
+    padding-top:{{ section.settings.padding_top }}px
+  }
+  
+  .faq-list{
+    padding-left:0
+  }
+  
+  .faq-list li{
+    list-style-type:none;
+    margin-top:15px;
+  }
+  
+</style>
+
+<div class = "section-FAQ {{ section.settings.padding_top }} ">
+  <div class = "container">
+    <div class = "row">
+      <div class="col-12">
+        <h2><strong>FREQUENTLY ASKED QUESIONS</strong></h2>
+      </div>
+      <div class="col-12">
+        <ul class="faq-list">
+          {% for block in section.blocks %}
+          <li>
+            <h3>{{ block.settings.FAQ_question }}</h3>
+            <p> {{ block.settings.FAQ_answer }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "FAQ",
+    "settings" : [
+      {
+        
+        "type":"text",
+        "id":"padding_top",
+        "label":"padding top",
+        "default": "20"
+      }
+    ],
+    
+    "blocks": [
+      {
+        "name":"FAQ",
+        "type":"add_qa",
+        "settings":[
+          {
+            "id":"FAQ_question",
+            "type":"text",
+            "label":"Add Question"
+          },
+          {
+            "id":"FAQ_answer",
+            "type":"text",
+            "label":"Add Answer"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+

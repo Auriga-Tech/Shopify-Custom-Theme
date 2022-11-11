@@ -1,0 +1,53 @@
+{{ 'custom-about-us.css' | asset_url | stylesheet_tag }}
+
+<div class = "section-about-us">
+  <div class = "container">
+    <div class="aboutus-content">
+      {% for block in section.blocks %}  
+        {% case block.type %}
+  
+      {% when 'link' %}  
+        <div class="about-us-info" {{ block.shopify_attributes }}>   
+          {{ block.settings.linktext }}
+
+        <div class="text" {{ block.shopify_attributes }}>
+          {{ block.settings.custom-text-field }}
+        </div>
+        </div> 
+      {% endcase %} 
+    {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "about-us",
+  "max_blocks": 8,
+  
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "id": "linktext",
+          "type": "text",
+          "label": "Link text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "id": "custom-text-field",
+          "type": "textarea",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
